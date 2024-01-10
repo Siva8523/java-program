@@ -1,0 +1,94 @@
+import java.util.Scanner;
+import java.io.*;
+
+public class lcmgcm
+{
+    static int gcd(int x, int y)
+    {
+        int r=0, a, b;
+        a = (x > y) ? x : y; // a is greater number
+        b = (x < y) ? x : y;
+
+        r = b;
+        while(a % b != 0)
+        {
+            r = a % b;
+            a = b;
+            b = r;
+        }
+        return r;
+    }
+
+    static int lcm(int x, int y)
+    {
+        int a;
+        a = (x > y) ? x : y; // a is greater number
+        while(true)
+        {
+            if(a % x == 0 && a % y == 0)
+                return a;
+            ++a;
+        }
+    }
+
+
+
+
+    public static void main(String args[])
+    {
+        try
+        {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter N value: ");
+            int N=sc.nextInt();
+            if(N==2)
+            {
+
+                System.out.println("Enter the two numbers: ");
+                int x = sc.nextInt();
+                int y = sc.nextInt();
+
+                System.out.println("The GCD of two numbers is: " + gcd(x, y));
+                System.out.println("The LCM of two numbers is: " + lcm(x, y));
+            }
+            if(N==3)
+            {
+
+                System.out.println("Enter the three numbers: ");
+                int x = sc.nextInt();
+                int y = sc.nextInt();
+                int z = sc.nextInt();
+                int i;
+                int a=Math.max(x,Math.max(y,z));
+                while(true)
+                {
+                    if(a % x == 0 && a % y == 0 && a%z==0)
+                    {
+                        break;
+                    }
+                    else
+                        ++a;
+
+
+                }
+                System.out.println("LCM of "+x+", "+y+" and "+z+" is "+a);
+                int b=Math.min(x,Math.min(y,z));
+                for(i=b;i>=0;i--)
+                {
+                    if((x%i==0) && (y%i==0) && (z%i==0))
+                        break;
+
+                }
+                System.out.println("GCD of "+x+", "+y+" and "+z+" is "+i);
+
+            }
+
+        }
+        catch(Exception e)
+        {
+            System.out.println("Enter only numbers");
+
+        }
+    }
+}
+
