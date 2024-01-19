@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class factn {
+    public static boolean checkNum(String n){
+        try{
+            int x = Integer.parseInt(n);
+            return true;
+        }
+        catch(NumberFormatException e){
+            System.out.println("Enter a Valid Integer");
+            return false;
+        }
+    }
+    public static int fact(int n){
+        if(n == 0){
+            return 1;
+        }
+        return n*fact(n-1);
+    }
+    public static void main(String[] Args){
+        Scanner sc =new Scanner(System.in);
+
+        System.out.println("Enter N : ");
+        String n = sc.nextLine();
+
+        if(checkNum(n)){
+            int num = Integer.parseInt(n);
+            System.out.println("Factorial : " + fact(num));
+        }
+    }
+}
