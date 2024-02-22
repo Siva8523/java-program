@@ -1,0 +1,45 @@
+import java.util.*;
+
+public class negfib{
+    public static void fibo_pos(int lim){
+        int a = 0,b=1,c;
+        System.out.print(a + "  " + b);
+        for(int i =2;i<=lim;i++){
+            c = a + b;
+            System.out.print("  " + c);
+            a = b;
+            b = c;
+        }
+    }
+    public static void fibo_neg(int lim){
+        int a = 0,b=-1,c;
+        System.out.print(a + "  " + b);
+        for(int i =2;i<=lim;i++){
+            c = a - b;
+            System.out.print("  " + c);
+            a = b;
+            b = c;
+        }
+    }
+    public static void main(String[] Args){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("ENTER Limit : ");
+        int limit = sc.nextInt();
+
+        System.out.println("Enter Choice : \n1.Positive Series \n2.Negative Series");
+        int ch = sc.nextInt();
+
+        switch(ch){
+            case 1 :
+                fibo_pos(limit);
+                break;
+            case 2 :
+                fibo_neg(limit);
+                break;
+            default:
+                System.out.println("Enter a Valid Choice.");
+        }
+
+    }
+}
