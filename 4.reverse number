@@ -1,26 +1,21 @@
-import java.util.*;
-public class Validor
-{
-    public static void main(String arg[])
-    {
-        try
-        {
-            Scanner sc=new Scanner(System.in);
-            int n,re=0,rem;
-            System.out.println("Enter a number:");
-            n=sc.nextInt();
-            while(n!=0)
-            {
-                rem=n%10;
-                re=re*10+rem;
-                n=n/10;
-            }
+import java.util.InputMismatchException;
+import java.util.Scanner;
+public class vote {
+    public static void main(String[] args){
+        Scanner input =new Scanner(System.in);
+        System.out.println("enter your age:");
+        try {
+            float age = input.nextFloat();
+            if (age >= 18) {
+                System.out.println("your are eligleble for vote!");
+            } else if (age<0) {
+                System.out.println("still u didn't born!");
 
-            System.out.println("The reversed number is:"+re);
-        }
-        catch(Exception e)
-        {
-            System.out.println("Enter a valid number");
+            } else {
+                System.out.println("your are not eligeble for vote! need " + (18 - age) + " years!");
+            }
+        }catch (InputMismatchException e){
+            System.out.println("enter only intiger value!");
         }
     }
 }
