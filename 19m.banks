@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class banks {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the bank name (SBI, ICICI, AXIS):");
+        String bankName = scanner.next().toUpperCase();
+        System.out.println("Enter the rate of interest:");
+        float userROI = scanner.nextFloat();
+
+        float sbiROI = 8.4f;
+        float iciciROI = 7.3f;
+        float axisROI = 9.7f;
+
+        if ((bankName.equals("SBI") && userROI == sbiROI) ||
+                (bankName.equals("ICICI") && userROI == iciciROI) ||
+                (bankName.equals("AXIS") && userROI == axisROI)) {
+            System.out.println("VALID");
+        } else {
+            System.out.println("INVALID");
+        }
+    }
+}
