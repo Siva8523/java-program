@@ -1,0 +1,17 @@
+import java.util.Scanner;
+
+public class BINTODEC {
+
+    public static void main(String[] args) {
+        Scanner myScanner = new Scanner(System.in);
+
+        System.out.print("Enter a Binary number : ");
+        String binary = myScanner.nextLine();
+
+        int num = Integer.parseInt(binary, 2);
+        System.out.println("Decimal Number: " + num);
+
+        String octal = Integer.toOctalString(num);
+        System.out.println("Octal: " + octal);
+    }
+}
