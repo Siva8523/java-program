@@ -1,0 +1,46 @@
+import java.util.Scanner;
+class Perfn
+{
+    static boolean perfect(int num)
+    {
+        int sum = 0;
+        for(int i=1; i<num; i++)
+        {
+            if(num%i==0)
+            {
+                sum = sum+i;
+            }
+        }
+        if(sum==num)
+            return true;
+        else
+            return false;
+    }
+    public static void main(String[] args)
+    {
+        try
+        {
+            Scanner obj = new Scanner (System.in);
+            int n=0;
+            System.out.println("enter the value for N");
+            int N = obj.nextInt();
+            if(N<=0)
+                System.out.println("enter the N value correctly");
+            if(N==3)
+                n=1000;
+            if(N==5)
+                n=100000000;
+            for(int i=1; i<=n; i++)
+            {
+                if(perfect(i))
+                    System.out.println(i);
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("enter the N value correctly");
+        }
+
+
+    }
+}
