@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class sumofn {
+    public static void main(String[] args) {
+        try {
+            Scanner sc = new Scanner(System.in);
+            int a, sum = 0;
+            System.out.println("Enter the total number of elements: ");
+            a = sc.nextInt();
+            if (a <= 0) {
+                throw new Exception("Invalid input");
+            }
+            int arr[] = new int[a]; // Dynamically allocate the array based on user input
+            System.out.println("Enter the elements: ");
+            for (int i = 0; i < a; i++) {
+                arr[i] = sc.nextInt();
+            }
+            for (int i = 0; i < a; i++) {
+                sum += arr[i];
+            }
+            System.out.println("Sum: " + sum);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array index out of bounds!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
