@@ -1,0 +1,25 @@
+import java.util.*;
+public class nonspacechar {
+    public static void main(String[] args){
+        try {
+            String s1;
+            int length1=0;
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter the string:");
+            s1 = sc.nextLine();
+            String[] words=s1.split(" ");
+            if(words.length>0)
+            {
+                length1=words[words.length-1].length();
+            }
+            else {
+                length1=0;
+            }
+            System.out.println("length= "+length1);
+        }
+        catch(Exception e)
+        {
+            System.out.println("enter valid input.");
+        }
+    }
+}
