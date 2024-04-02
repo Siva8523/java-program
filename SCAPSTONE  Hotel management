@@ -1,0 +1,226 @@
+import java.util.*;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
+class User {
+    private String username;
+    private String password;
+    private List<RoomReservation> reservations;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.reservations = new ArrayList<>();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public List<RoomReservation> getReservations() {
+        return reservations;
+    }
+}
+
+class Room {
+    private int roomNumber;
+    private String type;
+    private boolean isOccupied;
+    private double rate;
+
+    public Room(int roomNumber, String type, double rate) {
+        this.roomNumber = roomNumber;
+        this.type = type;
+        this.rate = rate;
+        this.isOccupied = false;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
+    }
+}
+
+class RoomReservation {
+    private Room room;
+    private User guest;
+    private Date checkInDate;
+    private Date checkOutDate;
+
+    public RoomReservation(Room room, User guest, Date checkInDate, Date checkOutDate) {
+        this.room = room;
+        this.guest = guest;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public User getGuest() {
+        return guest;
+    }
+
+    public Date getCheckInDate() {
+        return checkInDate;
+    }
+
+    public Date getCheckOutDate() {
+        return checkOutDate;
+    }
+}
+
+public class HotelManagementSystem {
+    private List<User> users;
+    private List<Room> rooms;
+
+    public HotelManagementSystem() {
+        this.users = new ArrayList<>();
+        this.rooms = new ArrayList<>();
+        initializeRooms();
+    }
+
+    private void initializeRooms() {
+        rooms.add(new Room(101, "Single", 50.0));
+        rooms.add(new Room(102, "Double", 75.0));
+        rooms.add(new Room(103, "Suite", 100.0));
+    }
+
+    public void registerUser(String username, String password) {
+        User newUser = new User(username, password);
+        users.add(newUser);
+        System.out.println("User registered successfully!");
+    }
+
+    public String login(String username, String password) {
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                System.out.println("Login successful!");
+                return username;
+            }
+        }
+        System.out.println("Invalid username or password!");
+        return null;
+    }
+
+    public void bookRoom(User user, Room room, Date checkInDate, Date checkOutDate) {
+        if (!room.isOccupied()) {
+            RoomReservation reservation = new RoomReservation(room, user, checkInDate, checkOutDate);
+            user.getReservations().add(reservation);
+            room.setOccupied(true);
+            System.out.println("Room booked successfully!");
+        } else {
+            System.out.println("Room is already occupied for the selected dates!");
+        }
+    }
+
+    public void displayAvailableRooms() {
+        System.out.println("\nAvailable Rooms:");
+        for (Room room : rooms) {
+            if (!room.isOccupied()) {
+                System.out.println("Room Number: " + room.getRoomNumber() + ", Type: " + room.getType() + ", Rate: $" + room.getRate() + "/night");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        HotelManagementSystem hotelSystem = new HotelManagementSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Hotel Management System!");
+
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Book Room");
+            System.out.println("4. Display Available Rooms");
+            System.out.println("5. Exit");
+            System.out.print("Select an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter username: ");
+                    String regUsername = scanner.nextLine();
+                    System.out.print("Enter password: ");
+                    String regPassword = scanner.nextLine();
+                    hotelSystem.registerUser(regUsername, regPassword);
+                    break;
+                case 2:
+                    System.out.print("Enter username: ");
+                    String loginUsername = scanner.nextLine();
+                    System.out.print("Enter password: ");
+                    String loginPassword = scanner.nextLine();
+                    String loggedInUser = hotelSystem.login(loginUsername, loginPassword);
+                    if (loggedInUser != null) {
+                        System.out.println("Welcome, " + loggedInUser + "!");
+                    }
+                    break;
+                case 3:
+                    if (hotelSystem.users.isEmpty()) {
+                        System.out.println("Please register/login before booking a room.");
+                    } else {
+                        System.out.println("Enter check-in date (yyyy-MM-dd): ");
+                        String checkInDateString = scanner.nextLine();
+                        System.out.println("Enter check-out date (yyyy-MM-dd): ");
+                        String checkOutDateString = scanner.nextLine();
+                        try {
+                            Date checkInDate = new SimpleDateFormat("yyyy-MM-dd").parse(checkInDateString);
+                            Date checkOutDate = new SimpleDateFormat("yyyy-MM-dd").parse(checkOutDateString);
+                            hotelSystem.displayAvailableRooms();
+                            System.out.print("Enter room number to book: ");
+                            int roomNumber = scanner.nextInt();
+                            scanner.nextLine();
+                            Room selectedRoom = null;
+                            for (Room room : hotelSystem.rooms) {
+                                if (room.getRoomNumber() == roomNumber) {
+                                    selectedRoom = room;
+                                    break;
+                                }
+                            }
+                            if (selectedRoom != null) {
+                                User currentUser = hotelSystem.users.get(0);
+                                hotelSystem.bookRoom(currentUser, selectedRoom, checkInDate, checkOutDate);
+                            } else {
+                                System.out.println("Invalid room number.");
+                            }
+                        } catch (ParseException e) {
+                            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+                        }
+                    }
+                    break;
+                case 4:
+                    hotelSystem.displayAvailableRooms();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+}
