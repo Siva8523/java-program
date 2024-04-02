@@ -1,0 +1,42 @@
+42.import java.util.Scanner;
+43.class DAY5SUMOFDIGITSOFNDIGITNUMBER
+44.{
+45.    public static void main(String arg[])
+46.    {
+47.        try
+48.        {
+49.            int m, n,sum,n1,c=0;
+50.            Scanner sc=new Scanner(System.in);
+51.            System.out.println("Enter the no.of.digits: ");
+52.            m=sc.nextInt();
+53.            System.out.println("Enter a number ");
+54.            n=sc.nextInt();
+55.            int n2=n;
+56.            while(n2>0)
+57.            {
+58.                n1=n%10;
+59.                c++;
+60.                n2=n2/10;
+61.
+62.            }
+63.            System.out.println("Digits:"+c);
+64.            if(m==c)
+65.            {
+66.                for(sum=0 ;n!=0 ;n/=10)
+67.                {
+68.                    sum+=n%10;
+69.                }
+70.                System.out.println("Sum of digits "+sum);
+71.            }
+72.            else
+73.            {
+74.                System.out.println("Enter the correct digit number");
+75.            }
+76.        }
+77.        catch(Exception e)
+78.        {
+79.            System.out.println("Due to character exception");
+80.        }
+81.
+82.    }
+}
